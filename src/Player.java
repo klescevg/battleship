@@ -5,6 +5,10 @@ public class Player {
     private Battlefield myField;
     private Battlefield enemyField;
 
+    public Player(String name) {
+        this.name = name;
+    }
+
     public void setShips(){
         Scanner scanner = new Scanner(System.in);
 
