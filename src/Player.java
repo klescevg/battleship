@@ -18,7 +18,7 @@ public class Player {
         set4SizedShip();
     }
 
-    public void set4SizedShip(){
+    public void set4SizedShip() {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -48,74 +48,69 @@ public class Player {
         }
     }
 
-
-
-//    public void setShips() {
-//        Scanner scanner = new Scanner(System.in);
-//        String XCoordinates = "ABCDEFGHIJ";
-//
-//        int shipSize = 4;
-//        while (shipSize != 0) {
-//            System.out.println("Enter " + shipSize + " size ship coordinates");
-//
-//            int currentShipSize = 0;
-//            while (currentShipSize != shipSize) {
-//                System.out.println("Enter " + (currentShipSize + 1) + " position.");
-//
-//                //enter X
-//                System.out.print("X: ");
-//                String xString = scanner.nextLine().toUpperCase();
-//                if(xString.length() != 1 || !XCoordinates.contains(xString)){
-//                    System.out.println("Wrong range. Should be from A to J, try again.");
-//                    continue;
-//                }
-//                int xInt = XCoordinates.indexOf(xString);
-//
-//                //enter y
-//                System.out.print("Y: ");
-//                int y = Integer.parseInt(scanner.nextLine());
-//                if (y > 10 || y < 1) {
-//                    System.out.println("Wrong range. Should be from 1 to 10, try again.");
-//                    continue;
-//                }
-//
-//
-//                myField.setShip(xInt, y-1);
-//                currentShipSize++;
-//            }
-//
-//
-//            shipSize--;
-//        }
-//    }
-
-/*    public void setShips() {
+    public void setShip(int size) {
         Scanner scanner = new Scanner(System.in);
-//        String[] YCoordinates = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
-//        String[] XCoordinates = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
 
-        String YCoordinates = "ABCDEFGHIJ";
-        String XCoordinates = "12345678910";
+        while (true) {
+            //System.out.println("Enter coordinates of 4 size ship (format: x,y;x,y;x,y;x,y)");
+            String input = scanner.nextLine();
+            String[] inputCoordinates = input.split(";");
+            int[][] shipCoordinates = new int[inputCoordinates.length][2];
 
-        System.out.println("Set 4 square ship positions (e.g. B6, B5, etc.): ");
-        int x = 0;
-
-        while (x != 4) {
-            String position = scanner.nextLine();
-
-            String[] coordinates = position.split("");
-
-            if (!YCoordinates.contains(coordinates[0])) {
-                System.out.println("Wrong Y coordinate, try again");
-                continue;
+            for (int i = 0; i < inputCoordinates.length; i++) {
+                String[] coordinate = inputCoordinates[i].split(",");
+                shipCoordinates[i][0] = Integer.parseInt(coordinate[0]);
+                shipCoordinates[i][1] = Integer.parseInt(coordinate[1]);
             }
 
-            if (!XCoordinates.contains(coordinates[1])) {
-                System.out.println("Wrong X coordinate, try again");
-                continue;
-            }
-
-            x++;
+            //check coordinate range (0..9)
+            //check number of coordinates (e.g. 4 for 4-sized ship)
+            //check ship integrity
+            //check free space
+            //check intersections with other ships
         }
-    }*/
+    }
+
+    public boolean checkShipCoordinates(int[][] shipCoordinates, int shipSize) {
+        //check number of coordinates (e.g. 4 for 4-sized ship)
+        if (shipCoordinates.length != shipSize) {
+            System.out.println("Wrong ship size");
+            return false;
+        }
+
+        //check coordinate format (2D)
+        for (int i = 0; i < shipSize; i++) {
+            if (shipCoordinates[i].length != 2) {
+                System.out.println("Wrong coordinates format (2D coordinates required)");
+                return false;
+            }
+        }
+
+        //check coordinate range (0..9)
+        for (int i = 0; i < shipSize; i++) {
+            for (int j = 0; j < 2; j++) {
+                if (shipCoordinates[i][j] > 9 || shipCoordinates[i][j] < 0) {
+                    return false;
+                }
+            }
+        }
+
+        //check ship integrity (without continuity check - TO DO)
+        boolean allXSame = true;
+        boolean allYSame = true;
+        for (int i = 1; i < shipSize; i++) {
+            if (shipCoordinates[i][0] != shipCoordinates[0][0]) {
+                allXSame = false;
+            }
+            if (shipCoordinates[i][1] != shipCoordinates[0][1]) {
+                allYSame = false;
+            }
+        }
+        if (allXSame == allYSame) {
+            return false;
+        }
+
+
+        return true;
+    }
 }
