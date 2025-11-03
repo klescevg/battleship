@@ -1,3 +1,3 @@
-public enum CellState {
+/*public enum CellState {
     EMPTY, SHIP, HIT, MISS
-}
+}*/

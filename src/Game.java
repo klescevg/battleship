@@ -4,6 +4,10 @@ public class Game {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
+        Battlefield field1 = new Battlefield();
+
+        field1.print();
+
 /*        //set names and create players
         System.out.print("Player 1 enter your name: ");
         String player1Name = scanner.nextLine();
@@ -17,11 +21,11 @@ public class Game {
 
         //set ship position
         player1.setShips();
-        player2.setShips();*/
+        player2.setShips();
 
         Player testPlayer = new Player("test");
 
-        testPlayer.setShips();
+        testPlayer.setShips();*/
 
     }
 }

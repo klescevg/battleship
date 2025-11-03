@@ -15,13 +15,20 @@ public class Player {
 
         System.out.println(name + ", get ready to set your ships!");
 
+        set4SizedShip();
+    }
+
+    public void set4SizedShip(){
+        Scanner scanner = new Scanner(System.in);
+
         while (true) {
             System.out.println("Enter coordinates of 4 size ship (format: x,y;x,y;x,y;x,y)");
             String input = scanner.nextLine();
             String[] coordinates = input.split(";");
-            int[] intCoordinates;
-            for (int i = 0; i < coordinates.length; i++) {
-                String[] coordinate = coordinates[i].split(",");
+
+            int currentShipSection = 0;
+            while (currentShipSection < coordinates.length) {
+                String[] coordinate = coordinates[currentShipSection].split(",");
                 int x = Integer.parseInt(coordinate[0]);
                 int y = Integer.parseInt(coordinate[1]);
 
@@ -31,10 +38,17 @@ public class Player {
                     break;
                 }
 
+                myField.setShip(x, y);
+                currentShipSection++;
+            }
+
+            if (currentShipSection == 4) {
                 break;
             }
         }
     }
+
+
 
 //    public void setShips() {
 //        Scanner scanner = new Scanner(System.in);
